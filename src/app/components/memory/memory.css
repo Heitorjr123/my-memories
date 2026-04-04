@@ -1,0 +1,92 @@
+:host {
+  display: block;
+  width: 280px;
+}
+
+.memory {
+  padding: 20px;
+  min-height: 280px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: rgba(0, 0, 0, 0.8);
+  transition: transform 0.3s ease;
+  margin-top: 10px;
+}
+
+.memory:hover {
+  transform: translateY(-5px) rotate(1deg);
+}
+
+.memory-header {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 8px;
+}
+
+.title {
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.user {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.memory-content {
+  flex-grow: 1;
+}
+
+.memory-content p {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+}
+
+.image-wrapper {
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  margin-top: 10px;
+}
+
+.memory-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.memory-footer {
+  font-size: 0.75rem;
+  text-align: right;
+  opacity: 0.6;
+  font-weight: 500;
+}
+
+:host:nth-child(even) .memory {
+  transform: rotate(2deg);
+}
+
+:host:nth-child(3n) .memory {
+  transform: rotate(-1.5deg);
+}
+
+:host:nth-child(5n) .memory {
+  transform: rotate(1.2deg);
+}
+
+.memory:hover {
+  transform: scale(1.05) rotate(0deg) !important;
+  z-index: 10;
+}

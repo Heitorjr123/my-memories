@@ -1,1 +1,12 @@
-<p>memories-grid works!</p>
+<div class="memory-grid">
+  @for (item of memories; track $index) {
+    <app-memory
+      [title]="item.title"
+      [user]="item.user"
+      [description]="item.description"
+      [imageUrl]="item.imageUrl"
+      [date]="item.date"
+      [color]="item.color"
+    ></app-memory>
+  }
+</div>

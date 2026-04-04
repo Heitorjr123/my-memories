@@ -1,0 +1,19 @@
+<div class="memory" [style.background-color]="color">
+  <div class="memory-header">
+    <h3 class="title">{{ title }}</h3>
+    <span class="user">@{{ user }}</span>
+  </div>
+
+  <div class="memory-content">
+    <p>{{ description }}</p>
+    @if (imageUrl) {
+      <div class="image-wrapper">
+        <img [src]="imageUrl" alt="Memory Image" class="memory-image" />
+      </div>
+    }
+  </div>
+
+  <div class="memory-footer">
+    <span class="date">{{ date }}</span>
+  </div>
+</div>
