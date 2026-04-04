@@ -6,14 +6,14 @@
 
   <div class="memory-content">
     <p>{{ description }}</p>
-    @if (imageUrl) {
-      <div class="image-wrapper">
-        <img [src]="imageUrl" alt="Memory Image" class="memory-image" />
-      </div>
-    }
+
+    <div class="memory-type-tag">
+      <fa-icon [icon]="getTypeIcon()"></fa-icon>
+      <span>{{ type }}</span>
+    </div>
   </div>
 
   <div class="memory-footer">
-    <span class="date">{{ date }}</span>
+    <span class="date">{{ date | date: 'dd/MM/yyyy' }}</span>
   </div>
 </div>

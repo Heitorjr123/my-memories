@@ -15,3 +15,13 @@ body {
   flex-direction: row;
   align-items: center;
 }
+
+.cdk-drag-preview {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5) !important;
+  cursor: grabbing;
+  overflow: hidden !important;
+}
+
+.cdk-drag-preview * {
+  overflow: hidden !important;
+}

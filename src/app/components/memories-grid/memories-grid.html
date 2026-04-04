@@ -1,12 +1,25 @@
-<div class="memory-grid">
-  @for (item of memories; track $index) {
-    <app-memory
-      [title]="item.title"
-      [user]="item.user"
-      [description]="item.description"
-      [imageUrl]="item.imageUrl"
-      [date]="item.date"
-      [color]="item.color"
-    ></app-memory>
-  }
+<div class="mural-container">
+  <div
+    class="memory-grid"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="drop($event)"
+  >
+    @for (item of memories; track item) {
+      <app-memory
+        cdkDrag
+        [title]="item.title"
+        [user]="item.user"
+        [description]="item.description"
+        [date]="item.date"
+        [color]="item.color"
+      >
+        <div class="custom-placeholder" *cdkDragPlaceholder></div>
+      </app-memory>
+    }
+  </div>
+
+  <button class="fab-add" [routerLink]="['/memory', 0]">
+    <fa-icon [icon]="plusIcon"></fa-icon>
+  </button>
 </div>

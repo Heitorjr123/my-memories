@@ -1,0 +1,106 @@
+<div class="editor-overlay">
+  <div class="post-it-editor" [style.backgroundColor]="formulario.color">
+    <div class="post-it-pin"></div>
+
+    <button type="button" class="btn-close" title="Fechar" (click)="close()">
+      <fa-icon [icon]="faXmark"></fa-icon>
+    </button>
+
+    <div class="editor-header">
+      <input
+        type="text"
+        [(ngModel)]="formulario.title"
+        placeholder="Título da Memória"
+        class="input-title"
+      />
+      <input type="text" [(ngModel)]="formulario.user" placeholder="@usuario" class="input-user" />
+    </div>
+
+    <div class="type-selection">
+      <label>Categoria</label>
+      <div class="carousel-wrapper">
+        <button class="nav-btn left" (click)="moveCarousel(-1)">
+          <fa-icon [icon]="faChevronLeft"></fa-icon>
+        </button>
+        <div class="carousel-container" #carousel>
+          <div class="carousel-track">
+            <div
+              class="type-card"
+              [class.active]="formulario.type === 'lembrete'"
+              (click)="formulario.type = 'lembrete'"
+            >
+              <fa-icon [icon]="faBell"></fa-icon>
+              <span>Lembrete</span>
+            </div>
+
+            <div
+              class="type-card"
+              [class.active]="formulario.type === 'motivacao'"
+              (click)="formulario.type = 'motivacao'"
+            >
+              <fa-icon [icon]="faQuoteLeft"></fa-icon>
+              <span>Motivação</span>
+            </div>
+
+            <div
+              class="type-card"
+              [class.active]="formulario.type === 'lembranca'"
+              (click)="formulario.type = 'lembranca'"
+            >
+              <fa-icon [icon]="faHeart"></fa-icon>
+              <span>Lembrança</span>
+            </div>
+
+            <div
+              class="type-card"
+              [class.active]="formulario.type === 'ideia'"
+              (click)="formulario.type = 'ideia'"
+            >
+              <fa-icon [icon]="faLightbulb"></fa-icon>
+              <span>Ideia</span>
+            </div>
+
+            <div
+              class="type-card"
+              [class.active]="formulario.type === 'tarefa'"
+              (click)="formulario.type = 'tarefa'"
+            >
+              <fa-icon [icon]="faThumbtack"></fa-icon>
+              <span>Tarefa</span>
+            </div>
+          </div>
+        </div>
+        <button class="nav-btn right" (click)="moveCarousel(1)">
+          <fa-icon [icon]="faChevronRight"></fa-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="editor-body">
+      <textarea
+        [(ngModel)]="formulario.description"
+        placeholder="O que você quer lembrar?"
+        rows="6"
+      ></textarea>
+    </div>
+
+    <div class="editor-footer">
+      <div class="color-picker">
+        @for (c of ['#fffd91', '#ff91e4', '#91c4ff', '#91ffb9', '#fa8e08']; track c) {
+          <span
+            class="color-dot"
+            [style.backgroundColor]="c"
+            [class.active]="formulario.color === c"
+            (click)="formulario.color = c"
+          >
+          </span>
+        }
+      </div>
+
+      <button class="btn-save" (click)="salvarMemoria()">
+        <fa-icon [icon]="saveIcon"></fa-icon>
+        Salvar
+      </button>
+    </div>
+  </div>
+</div>
