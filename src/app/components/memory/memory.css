@@ -156,3 +156,44 @@
   justify-content: space-between;
   height: 100%;
 }
+
+.memory-actions {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 5;
+}
+
+.memory:hover .memory-actions {
+  opacity: 1;
+}
+
+.btn-action {
+  background: rgba(255, 255, 255, 0.6);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-action.edit:hover {
+  background: #4a90e2;
+  color: white;
+}
+
+.btn-action.delete:hover {
+  background: #e63946;
+  color: white;
+}

@@ -1,7 +1,7 @@
 import { MemoryService } from './../../services/memory.service';
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   faBell,
   faChevronLeft,
@@ -15,6 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
+import { Memory } from '../../models/memory.model';
 
 @Component({
   selector: 'app-memory-details',
@@ -27,6 +28,8 @@ export class MemoryDetails {
 
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private cdr = inject(ChangeDetectorRef);
 
   saveIcon = faSave;
   faXmark = faXmark;
@@ -38,8 +41,8 @@ export class MemoryDetails {
   faChevronLeft = faChevronLeft;
   faChevronRight = faChevronRight;
 
-  formulario = {
-    id: 0,
+  formulario: Memory = {
+    id: undefined,
     title: '',
     description: '',
     color: '#fffd91',
@@ -47,6 +50,22 @@ export class MemoryDetails {
     type: 'lembrete',
     user: '',
   };
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (id && id !== '0') {
+      this.memoryService.getMemoryById(id).subscribe({
+        next: (dados: any) => {
+          this.formulario = { ...dados, date: new Date(dados.date) };
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Erro na API:', err);
+        },
+      });
+    }
+  }
 
   @ViewChild('carousel') carousel!: ElementRef;
 
@@ -61,21 +80,24 @@ export class MemoryDetails {
   }
 
   salvarMemoria(): void {
-    const { id, ...dadosParaEnvio } = this.formulario;
-    this.memoryService.createMemory(dadosParaEnvio).subscribe({
-      next: () => {
-        this.snackBar.open('✨ Memória guardada com sucesso!', 'Fechar', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        });
-        this.resetForm();
-        this.router.navigate(['/']);
-      },
-      error: () => {
-        this.snackBar.open('❌ Ops! Verifique se o servidor está ligado.', 'Entendido');
-      },
-    });
+    if (this.formulario.id && this.formulario.id !== '0') {
+      this.memoryService.updateMemory(this.formulario.id, this.formulario).subscribe({
+        next: () => {
+          this.snackBar.open('✅ Memória atualizada!', 'OK', { duration: 3000 });
+          this.router.navigate(['/']);
+        },
+        error: (err) => console.error('Erro ao atualizar:', err),
+      });
+    } else {
+      const { id, ...novoRegistro } = this.formulario;
+      this.memoryService.createMemory(novoRegistro).subscribe({
+        next: () => {
+          this.snackBar.open('✨ Memória criada!', 'OK', { duration: 3000 });
+          this.router.navigate(['/']);
+        },
+        error: (err) => console.error('Erro ao criar:', err),
+      });
+    }
   }
 
   close(): void {
@@ -84,7 +106,7 @@ export class MemoryDetails {
 
   resetForm() {
     this.formulario = {
-      id: 0,
+      id: undefined,
       title: '',
       description: '',
       color: '#fffd91',

@@ -8,11 +8,14 @@
     @for (item of memories; track item) {
       <app-memory
         cdkDrag
+        [id]="item.id"
         [title]="item.title"
         [user]="item.user"
         [description]="item.description"
         [date]="item.date"
         [color]="item.color"
+        (onEdit)="editar($event)"
+        (onDelete)="excluir($event)"
       >
         <div class="custom-placeholder" *cdkDragPlaceholder></div>
       </app-memory>

@@ -99,7 +99,7 @@
 
       <button class="btn-save" (click)="salvarMemoria()">
         <fa-icon [icon]="saveIcon"></fa-icon>
-        Salvar
+        {{ formulario.id && formulario.id !== '0' ? 'Atualizar' : 'Salvar' }}
       </button>
     </div>
   </div>

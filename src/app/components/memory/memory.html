@@ -1,4 +1,13 @@
 <div class="memory" [style.background-color]="color">
+  <div class="memory-actions">
+    <button class="btn-action edit" (click)="edit()" title="Editar">
+      <fa-icon [icon]="iconeAlterar"></fa-icon>
+    </button>
+    <button class="btn-action delete" (click)="delete()" title="Excluir">
+      <fa-icon [icon]="iconeExcluir"></fa-icon>
+    </button>
+  </div>
+
   <div class="memory-header">
     <h3 class="title">{{ title }}</h3>
     <span class="user">@{{ user }}</span>
